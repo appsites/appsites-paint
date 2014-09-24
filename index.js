@@ -1,19 +1,16 @@
 // Paint
 // ----
-// Module for importing and exporting Appsites themes. Methods for painting a theme to the DOM,
-// or exporting a theme to CSS.
-// Used by both the editor and the service API site compiler.
-//
-// TODO:
-// Handle CSS exporting.
-// Apply to service API.
-
+// Module for importing and exporting Appsites themes. Methods for painting a theme to the DOM
+// and exporting a theme to CSS.
 
 var paint = function(jQuery){
   this.jQuery = jQuery;
   this.config = {};
   return this;
 };
+
+// paint.properties
+// Map of theme properties to CSS properties and formatting methods.
 
 paint.prototype.properties = [
   { property: "image",            use:  "image"                               },
@@ -39,6 +36,9 @@ paint.prototype.properties = [
   { property: "textColor",        use:  "hex",       css: "color"             },
   { property: "textShadow",       use:  "shadow",    css: "text-shadow"       }
 ];
+
+// paint.dom()
+// Accepts a theme element, a property, and a value and uses jQuery to apply given propertis to the DOM.
 
 paint.prototype.dom = function(e,k,v){
   if(this.jQuery){
@@ -66,44 +66,64 @@ paint.prototype.dom = function(e,k,v){
   }
 };
 
-paint.prototype.css = function(k,v){
-  var css = new String();
-  _.each(this.theme, function(item){
-    css += '[swyg="' + item.id + '"]{';
-    _.each(v.properties, function(value, prop){
-      css += prop + ':' + value + ';';
-    });
-    css += '}';
-  });
+// paint.css()
+// Exports a theme to raw CSS.
+
+paint.prototype.css = function(){
+
 };
 
-paint.prototype.px = function(value){
-  return new String(value).replace("px", "") + "px";
-};
+// paint.value()
+// Default value format.
 
 paint.prototype.value = function(value){
   return value;
 };
 
+// paint.px()
+// Formats a value with pixels.
+
+paint.prototype.px = function(value){
+  return new String(value).replace("px", "") + "px";
+};
+
+// paint.italic()
+// Converts boolean italic format to italic or normal values.
+
 paint.prototype.italic = function(value){
   return (value == "true" ? "italic" : "normal");
 };
+
+// paint.underline()
+// Converts boolean underline formats to underline or none.
 
 paint.prototype.underline = function(value){
   return (value == "true" ? "underline": "none");
 };
 
+// paint.hex()
+// Ensures that hex values are prefixed with a hash.
+
 paint.prototype.hex = function(value){
   return "#" + value.replace("#", "");
 };
+
+// paint.bgimage()
+// Returns a background image URL format or none.
 
 paint.prototype.bgimage = function(value){
   return (!value || value == "false" ? "none" : "url(" + value + ")");
 };
 
+// paint.bgpattern()
+// Returns a formatted pattern value, based on config.patterns.
+
 paint.prototype.bgpattern = function(value){
   return (!value || value == "false" ? "none" : "url(" + this.config.patterns + value + ".png)");
 };
+
+// paint.decimal()
+// Converts percentage value to a decimal.
 
 paint.prototype.decimal = function(value){
   if(value){
@@ -111,6 +131,9 @@ paint.prototype.decimal = function(value){
   }
   return 0;
 };
+
+// paint.weight()
+// Converts boolean weight (or number) values for font-weight.
 
 paint.prototype.weight = function(value){
   if(value == "true"){
@@ -123,6 +146,9 @@ paint.prototype.weight = function(value){
     return value;
   }
 };
+
+// paint.shadow()
+// Returns CSS shadow values from light/dark keywods.
 
 paint.prototype.shadow = function(value){
   if(value == "light"){
