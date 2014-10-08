@@ -3,6 +3,10 @@
 // Module for importing and exporting Appsites themes. Methods for painting a theme to the DOM
 // and exporting a theme to CSS.
 
+if(typeof require === "function"){
+  var _ = require("underscore");
+}
+
 var paint = function(jQuery){
   this.jQuery = jQuery;
   this.config = {};
@@ -72,8 +76,51 @@ paint.prototype.dom = function(e,k,v){
 // paint.css()
 // Exports a theme to raw CSS.
 
-paint.prototype.css = function(){
+paint.prototype.css = function(theme){
 
+  var css   = "";
+  var self  = this;
+  
+  _.each(theme, function(item){
+  
+    var props = [];
+    var fxs   = [];
+    
+    _.each(item.properties, function(prop, key){
+      var match = _.find(self.properties, function(o){
+        return (key == o.property ? o : false);
+      });
+      if(match && match.use){
+        if(match && match.use && typeof self[match.use] == "function"){
+          var value = self[match.use](prop);
+          if(value){
+            props.push(match.css + ':' + value);
+          }
+        }
+        else {
+          if(match.use == "ecolor"){
+            fxs.push("background-color:" + self.hex(prop));
+          }
+          else if(match.use == "eopacity"){
+            fxs.push("opacity:" + self.decimal(prop));
+          }
+        }
+      }
+    });
+
+    css += '[swyg="' + item.id + '"]{';
+    _.each(props, function(v){
+       css += v + ';';
+    });
+    css += '}';
+    css += '[swyg="' + item.id + '"] [swyg-overlay]{';
+    _.each(fxs, function(v){
+       css += v + ';';
+    });
+    css += '}';
+  });
+  
+  return css;
 };
 
 // paint.value()
@@ -167,8 +214,6 @@ paint.prototype.shadow = function(value){
 
 
 try {
-  module.exports = function(){
-    return new paint();
-  };
+  module.exports = paint;
 }
 catch(e){};
