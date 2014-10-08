@@ -1,6 +1,6 @@
 {
   "name": "appsites-paint",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Portable DOM module for importing and exporting Appsites themes.",
   "main": "main.js",
   "scripts": {

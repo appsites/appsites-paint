@@ -182,6 +182,7 @@ paint.prototype.decimal = function(value){
   return 0;
 };
 
+
 // paint.weight()
 // Converts boolean weight (or number) values for font-weight.
 
