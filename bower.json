@@ -1,0 +1,20 @@
+{
+  "name": "appsites-paint",
+  "version": "0.0.0",
+  "homepage": "https://github.com/appsites/appsites-paint",
+  "authors": [
+    "Erik Smith <erik@appsites.com> (http://appsites.com/)"
+  ],
+  "description": "Portable DOM module for importing and exporting Appsites themes.",
+  "main": "main.js",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "appsites",
+    "themes",
+    "dom"
+  ],
+  "license": "MIT"
+}

@@ -167,6 +167,8 @@ paint.prototype.shadow = function(value){
 
 
 try {
-  module.exports = paint;
+  module.exports = function(){
+    return new paint();
+  };
 }
 catch(e){};
