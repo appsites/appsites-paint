@@ -46,7 +46,10 @@ paint.prototype.dom = function(e,k,v){
       return (k == o.property ? o : false);
     });
     if(match && match.use && typeof this[match.use] == "function" && match.css){
-      return this.jQuery('[swyg="' + e + '"]').css(match.css, this[match.use](v));
+      var value = this[match.use](v);
+      if(value){
+        return this.jQuery('[swyg="' + e + '"]').css(match.css, value);
+      }
     }
     else if(match && match.use == "image"){
       return this.jQuery('[swyg="' + e + '"] swyg-template-image').html('<img src="' + v + '" />');
@@ -116,10 +119,10 @@ paint.prototype.bgimage = function(value){
 };
 
 // paint.bgpattern()
-// Returns a formatted pattern value, based on config.patterns.
+// Returns a background pattern.
 
 paint.prototype.bgpattern = function(value){
-  return (!value || value == "false" ? "none" : "url(" + this.config.patterns + value + ".png)");
+  return (!value || value == "false" ? false : "url(" + value + ")");
 };
 
 // paint.decimal()
