@@ -7,9 +7,9 @@ if(typeof require === "function"){
   var _ = require("underscore");
 }
 
-var paint = function(jQuery){
+var paint = function(jQuery, Config){
   this.jQuery = jQuery;
-  this.config = {};
+  this.config = Config;
   return this;
 };
 
@@ -169,7 +169,7 @@ paint.prototype.bgimage = function(value){
 // Returns a background pattern.
 
 paint.prototype.bgpattern = function(value){
-  return (!value || value == "false" ? false : "url(" + value + ")");
+  return (!value || value == "false" ? false : "url(" + this.config.patterns + value + ".png)");
 };
 
 // paint.decimal()
