@@ -13,6 +13,7 @@ var paint = function(jQuery, Config){
   return this;
 };
 
+
 // paint.properties
 // Map of theme properties to CSS properties and formatting methods.
 
