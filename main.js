@@ -108,14 +108,14 @@ paint.prototype.css = function(theme){
       }
     });
 
-    css += '[swyg="' + item.id + '"]{';
+    css += '[swyg="' + item.id + '"],[swyg="' + item.id + '"]:hover {';
     _.each(props, function(v){
-       css += v + ';';
+       css += v + '!important;';
     });
     css += '}';
     css += '[swyg="' + item.id + '"] [swyg-overlay]{';
     _.each(fxs, function(v){
-       css += v + ';';
+       css += v + '!important;';
     });
     css += '}';
   });
