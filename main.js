@@ -13,7 +13,6 @@ var paint = function(jQuery, Config){
   return this;
 };
 
-
 // paint.properties
 // Map of theme properties to CSS properties and formatting methods.
 
@@ -60,7 +59,7 @@ paint.prototype.dom = function(e,k,v){
       return this.jQuery('[swyg="' + e + '"] swyg-template-image').html('<img src="' + v + '" />');
     }
     else if(match && match.use == "text"){
-      return this.jQuery('[swyg="' + e + '"] swyg-template-text').html(v);
+      return this.jQuery('[swyg="' + e + '"] swyg-template-text').html(v.replace(/\r?\n/g, '<br />'));
     }
     else if(match && match.use == "ecolor"){
       return this.jQuery('[swyg="' + e + '"] [swyg-overlay]').css('background-color', this.hex(v));
@@ -109,14 +108,14 @@ paint.prototype.css = function(theme){
       }
     });
 
-    css += '[swyg="' + item.id + '"],[swyg="' + item.id + '"]:hover {';
+    css += '[swyg="' + item.id + '"]{';
     _.each(props, function(v){
-       css += v + '!important;';
+       css += v + ';';
     });
     css += '}';
     css += '[swyg="' + item.id + '"] [swyg-overlay]{';
     _.each(fxs, function(v){
-       css += v + '!important;';
+       css += v + ';';
     });
     css += '}';
   });
@@ -165,6 +164,7 @@ paint.prototype.hex = function(value){
 paint.prototype.bgimage = function(value){
   return (!value || value == "false" ? "none" : "url(" + value + ")");
 };
+
 
 // paint.bgpattern()
 // Returns a background pattern.
