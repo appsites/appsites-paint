@@ -110,12 +110,12 @@ paint.prototype.css = function(theme){
 
     css += '[swyg="' + item.id + '"]{';
     _.each(props, function(v){
-       css += v + ';';
+       css += v + '!important;';
     });
     css += '}';
     css += '[swyg="' + item.id + '"] [swyg-overlay]{';
     _.each(fxs, function(v){
-       css += v + ';';
+       css += v + '!important;';
     });
     css += '}';
   });
