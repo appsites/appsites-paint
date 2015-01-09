@@ -7,6 +7,10 @@ if(typeof require === "function"){
   var _ = require("underscore");
 }
 
+if(typeof marked !== "undefined"){
+  marked.setOptions({ sanitize: true });
+}
+
 var paint = function(jQuery, Config){
   this.jQuery = jQuery;
   this.config = Config;
