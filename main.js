@@ -60,7 +60,8 @@ paint.prototype.dom = function(e,k,v){
       return this.jQuery('[swyg="' + e + '"] swyg-template-image').html('<img src="' + v + '" />');
     }
     else if(match && match.use == "text"){
-      return this.jQuery('[swyg="' + e + '"] swyg-template-text').html(marked(v));
+      this.jQuery('[swyg="' + e + '"] swyg-template-text').html(marked(v));
+      return this.jQuery('[swyg="' + e + '"] swyg-template-text a').attr('onclick', 'return false');
     }
     else if(match && match.use == "ecolor"){
       return this.jQuery('[swyg="' + e + '"] [swyg-overlay]').css('background-color', this.hex(v));
