@@ -59,7 +59,7 @@ paint.prototype.dom = function(e,k,v){
       return this.jQuery('[swyg="' + e + '"] swyg-template-image').html('<img src="' + v + '" />');
     }
     else if(match && match.use == "text"){
-      return this.jQuery('[swyg="' + e + '"] swyg-template-text').html(v.replace(/\r?\n/g, '<br />'));
+      return this.jQuery('[swyg="' + e + '"] swyg-template-text').html(marked(v.replace(/\r?\n/g, '<br />')));
     }
     else if(match && match.use == "ecolor"){
       return this.jQuery('[swyg="' + e + '"] [swyg-overlay]').css('background-color', this.hex(v));
