@@ -39,7 +39,11 @@ paint.prototype.properties = [
   { property: "textSize",         use:  "px",        css: "font-size"         },
   { property: "textHeight",       use:  "px",        css: "line-height"       },
   { property: "textColor",        use:  "hex",       css: "color"             },
-  { property: "textShadow",       use:  "shadow",    css: "text-shadow"       }
+  { property: "textShadow",       use:  "shadow",    css: "text-shadow"       },
+  { property: "textSpacing",      use:  "value",     css: "letter-spacing"    },
+  { property: "borderWidth",      use:  "px",        css: "border-width"      },
+  { property: "borderColor",      use:  "hex",       css: "border-color"      },
+  { property: "borderRadius",     use:  "px",        css: "border-radius"     }
 ];
 
 // paint.dom()
@@ -57,10 +61,10 @@ paint.prototype.dom = function(e,k,v){
       }
     }
     else if(match && match.use == "image"){
-      return this.jQuery('[swyg="' + e + '"] swyg-template-image').html('<img src="' + v + '" />');
+      return this.jQuery('[swyg="' + e + '"] swyg-image').html('<img src="' + v + '" />');
     }
     else if(match && match.use == "text"){
-      return this.jQuery('[swyg="' + e + '"] swyg-template-text').html(v.replace(/\r?\n/g, '<br />'));
+      return this.jQuery('[swyg="' + e + '"] swyg-text').html(v.replace(/\r?\n/g, '<br />'));
     }
     else if(match && match.use == "ecolor"){
       return this.jQuery('[swyg="' + e + '"] [swyg-overlay]').css('background-color', this.hex(v));
@@ -114,6 +118,7 @@ paint.prototype.css = function(theme){
        css += v + '!important;';
     });
     css += '}';
+    
     css += '[swyg="' + item.id + '"] [swyg-overlay]{';
     _.each(fxs, function(v){
        css += v + '!important;';
@@ -156,7 +161,12 @@ paint.prototype.underline = function(value){
 // Ensures that hex values are prefixed with a hash.
 
 paint.prototype.hex = function(value){
-  return "#" + value.replace("#", "");
+  if(value == "none" || value == "transparent"){
+    return value;
+  }
+  else {
+    return "#" + value.replace("#", "");
+  }
 };
 
 // paint.bgimage()
